@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <title>Wiki Random Article</title>
+    <!-- Compressed CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Lobster+Two" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.0/css/foundation.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <style></style>
+    <script>
+    var tosearch = null;
+    $(document).ready(function(){
+        function getRandom(){
+            window.open("https://en.wikipedia.org/wiki/Special:Random", "_blank");
+        }
+        function getParticular(tosearch){
+            $.getJSON("https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&utf8=1&srsearch=" + tosearch + "&prop=info&inprop=url&callback=?", function(json) {
+                for(var x = 0; x < 9; x++){
+            $('#cont').append("<div class='callout'><a href='https://en.wikipedia.org/wiki/" + tosearch + "' target='_blank'><b>" + tosearch + "</b></a>" + "<br>" + json.query.search[x].snippet + "</div>" + "<br>")
+                       } 
+          });
+        }
+       $('#randomArt').click(function(){
+            getRandom();
+       });
+       $('#partiArt').click(function(){
+           tosearch = $('#topic').val();
+            getParticular(tosearch);
+            $('#topic').val("");
+       });
+    });
+    </script>
+</head>
+<body>
+    <h1 class="text-center" style="font-family: 'Lobster two', cursive;">Wiki Random Article</h1>
+    <div class="row" id="mainContent">
+        <div class="columns large-6 large-centered medium-6 medium-centered small-10 small-centered" id="cont">
+            <br/>
+            <br/>
+            <a class="button" id="randomArt">Click To Get Random Article</a><br/>
+            <input type="text" name="searcher" id="topic" placeholder="To Search Input"><br/>
+            <a class="button" id="partiArt">Search</a>
+        </div>
+    </div>
+    <br/><br/><br/>
+    <div class="row">
+        <div class="columns large-6 large-centered small-10 small-centered medium-6 medium-centered">
+            <h5 class="text-center" style="font-family: 'Lobster two'">Developed By : Naveen Kumar Dudi</h5>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.0/js/foundation.min.js"></script>
+</body>
+</html>
